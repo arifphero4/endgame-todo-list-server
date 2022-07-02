@@ -10,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.wryro.mongodb.net/?retryWrites=true&w=majority`;
+
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -19,7 +20,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    console.log("DB Connected");
+    const totalTodo = client.db("to-do-app").collection("totaltodo");
   } finally {
   }
 }
@@ -32,3 +33,9 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`to do web app listening on port ${port}`);
 });
+
+/* 
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.wryro.mongodb.net/?retryWrites=true&w=majority`;
+const totalTodo = client.db("to-do-app").collection("totaltodo");
+
+*/
