@@ -19,7 +19,6 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    console.log("DB Connected");
 
     const totalTodo = client.db("to-do-app").collection("totaltodo");
 
@@ -31,6 +30,7 @@ async function run() {
 
     app.get("/api/gettingTodo", async (req, res) => {
       const email = req.query.email;
+      console.log(email);
       const query = { email: email };
       const result = await totalTodo.find(query).toArray();
       res.send(result);
@@ -77,11 +77,11 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-  res.send("Hello Todo App");
+  res.send("task management app is running");
 });
 
 app.listen(port, () => {
-  console.log("Your Server Is Running at", port);
+  console.log("task management app Is Running at", port);
 });
 
 /* 
